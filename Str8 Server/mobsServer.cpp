@@ -33,18 +33,22 @@ void Server::mobs()
 			if (!(countDistance(m.getTarget()->position, m.position) < 2)) {
 				if (m.getTarget()->position.x > m.position.x)
 				{
+					if((map.get(m.position.y,m.position.x+1).playerCanEnter))
 					m.position.x++;
 				}
 				if (m.getTarget()->position.x < m.position.x)
 				{
+					if ((map.get(m.position.y, m.position.x - 1).playerCanEnter))//||(!((map.mobs[0].position.x)))
 					m.position.x--;
 				}
 				if (m.getTarget()->position.y > m.position.y)
 				{
+					if ((map.get(m.position.y+1, m.position.x).playerCanEnter))
 					m.position.y++;
 				}
 				if (m.getTarget()->position.y < m.position.y)
 				{
+					if ((map.get(m.position.y-1, m.position.x).playerCanEnter))
 					m.position.y--;
 				}
 			}

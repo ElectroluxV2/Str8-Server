@@ -102,7 +102,7 @@ struct map {
 
 	void generate() {
 		mob mob;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 100; i++)
 		{
 			mob.position.x = 0 + rand() % 100;
 			mob.position.y = 0 + rand() % 100;
