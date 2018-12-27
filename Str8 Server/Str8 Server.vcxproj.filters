@@ -13,10 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki źródłowe\server">
+      <UniqueIdentifier>{f6da227b-83ba-4f14-9a07-53b12125aab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\structs">
+      <UniqueIdentifier>{54312761-43bc-419d-af7e-6455f0973fa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Pliki źródłowe\server</Filter>
+    </ClCompile>
+    <ClCompile Include="runServer.cpp">
+      <Filter>Pliki źródłowe\server</Filter>
+    </ClCompile>
+    <ClCompile Include="parseResponseServer.cpp">
+      <Filter>Pliki źródłowe\server</Filter>
+    </ClCompile>
+    <ClCompile Include="mobsServer.cpp">
+      <Filter>Pliki źródłowe\server</Filter>
+    </ClCompile>
+    <ClCompile Include="initServer.cpp">
+      <Filter>Pliki źródłowe\server</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Server.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>Pliki źródłowe\structs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,17 @@
-#include <iostream>
-
-using namespace std;
+/*
+	Our Game Server
+*/
+#include "Server.h"
 
 int main() {
-	cout << "Hello Git Hub";
-	printf("gowno ta funkcja printf zajebana z C");
-	cout << "Sam spierdalaj";
+
+	/// Create master object
+	Server server;
+
+	// TODO: Read server settings
+
+	/// Init
+	server.initialization();
+
+	server.run();
 }
