@@ -39,6 +39,9 @@
     <ClCompile Include="initServer.cpp">
       <Filter>Pliki źródłowe\server</Filter>
     </ClCompile>
+    <ClCompile Include="structs.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Server.h">

@@ -125,6 +125,7 @@
     <ClCompile Include="parseResponseServer.cpp" />
     <ClCompile Include="runServer.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="structs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Server.h" />

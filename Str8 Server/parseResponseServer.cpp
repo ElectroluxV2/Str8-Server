@@ -7,7 +7,7 @@
 using namespace rapidjson;
 using namespace std;
 
-player Server::parseResponse(char* response) {
+player* Server::parseResponse(char* response) {
 
 	Document res;
 	if (res.Parse(buf).HasParseError()) {
@@ -41,56 +41,50 @@ player Server::parseResponse(char* response) {
 		map.players.push_back(resPlayer);
 	}
 
-	for (player &player : map.players) {
+	player* player = map.getPlayer(nick);
 
-		if (player.nick != resPlayer.nick) {
-			continue;
+	const Value& moves = res["kb"]; // Using a reference for consecutive access is handy and faster.
+
+	for (SizeType i = 0; i < moves.Size(); i++) {
+		if (moves[i].GetString() == string("d")) {
+			if (map.isSuitableForEntry(player->position.y, player->position.x + 1))
+				player->position.x++;
 		}
-
-		const Value& moves = res["kb"]; // Using a reference for consecutive access is handy and faster.
-
-		for (SizeType i = 0; i < moves.Size(); i++) {
-			if (moves[i].GetString() == string("d")) {
-				if (map.get(player.position.y, player.position.x + 1).playerCanEnter)
-					player.position.x++;
-			}
-			else if (moves[i].GetString() == string("a")) {
-				if (map.get(player.position.y, player.position.x - 1).playerCanEnter)
-					player.position.x--;
-			}
-			else if (moves[i].GetString() == string("s")) {
-				if (map.get(player.position.y + 1, player.position.x).playerCanEnter)
-					player.position.y++;
-			}
-			else if (moves[i].GetString() == string("w")) {
-				if (map.get(player.position.y - 1, player.position.x).playerCanEnter)
-					player.position.y--;
-			}
-			else if (moves[i].GetString() == string("h")) {
-				block b = map.get(player.position.y, player.position.x);
-				b.face++;
-				map.set(player.position.y, player.position.x, b);
-			}
-			else if (moves[i].GetString() == string("j")) {
-				block b = map.get(player.position.y, player.position.x);
-				b.face--;
-				map.set(player.position.y, player.position.x, b);
-			}
-			else if (moves[i].GetString() == string("k")) {
-				block b = map.get(player.position.y, player.position.x);
-				b.color++;
-				map.set(player.position.y, player.position.x, b);
-			}
-			else if (moves[i].GetString() == string("l")) {
-				block b = map.get(player.position.y, player.position.x);
-				b.color--;
-				map.set(player.position.y, player.position.x, b);
-			}
-			else if (moves[i].GetString() == string("`")) {
-
-			}
+		else if (moves[i].GetString() == string("a")) {
+			if (map.isSuitableForEntry(player->position.y, player->position.x - 1))
+				player->position.x--;
 		}
-		return player;
+		else if (moves[i].GetString() == string("s")) {
+			if (map.isSuitableForEntry(player->position.y + 1, player->position.x))
+				player->position.y++;
+		}
+		else if (moves[i].GetString() == string("w")) {
+			if (map.isSuitableForEntry(player->position.y - 1, player->position.x))
+				player->position.y--;
+		}
+		else if (moves[i].GetString() == string("h")) {
+			block b = map.get(player->position);
+			b.face++;
+			map.set(player->position, b);
+		}
+		else if (moves[i].GetString() == string("j")) {
+			block b = map.get(player->position);
+			b.face--;
+			map.set(player->position, b);
+		}
+		else if (moves[i].GetString() == string("k")) {
+			block b = map.get(player->position);
+			b.color++;
+			map.set(player->position, b);
+		}
+		else if (moves[i].GetString() == string("l")) {
+			block b = map.get(player->position);
+			b.color--;
+			map.set(player->position, b);
+		}
+		else if (moves[i].GetString() == string("`")) {
+
+		}
 	}
-
+	return player;
 }

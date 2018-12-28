@@ -33,19 +33,23 @@ void Server::mobs()
 			if (!(countDistance(m.getTarget()->position, m.position) < 2)) {
 				if (m.getTarget()->position.x > m.position.x)
 				{
-					m.position.x++;
+					if (map.isSuitableForEntry(m.position.y, m.position.x + 1))
+						m.position.x++;
 				}
 				if (m.getTarget()->position.x < m.position.x)
 				{
-					m.position.x--;
+					if (map.isSuitableForEntry(m.position.y, m.position.x - 1))
+						m.position.x--;
 				}
 				if (m.getTarget()->position.y > m.position.y)
 				{
-					m.position.y++;
+					if (map.isSuitableForEntry(m.position.y + 1, m.position.x))
+						m.position.y++;
 				}
 				if (m.getTarget()->position.y < m.position.y)
 				{
-					m.position.y--;
+					if (map.isSuitableForEntry(m.position.y - 1, m.position.x))
+						m.position.y--;
 				}
 			}
 			else
@@ -55,9 +59,6 @@ void Server::mobs()
 				if (m.getTarget()->hp <= 0)
 					m.getTarget()->kill();
 			}
-			cout << "XBOT : " << m.position.x << " Y: " << m.position.y << endl;
-			cout << "XGRACZ: " << m.getTarget()->position.x << " Y: " << m.getTarget()->position.y << endl;
-			cout << map.players.size() << endl;
 		}
 	}
 }

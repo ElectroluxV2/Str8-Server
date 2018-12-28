@@ -27,7 +27,7 @@ public:
 	void mobs();
 	void initialization();
 	void run();
-	player parseResponse(char* response);
+	player* parseResponse(char* response);
 	Server();
 	~Server();
 };

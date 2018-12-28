@@ -5,7 +5,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/document.h"
 #include "rapidjson/prettywriter.h"
-#include <Windows.h>
+#include <windows.h>
 #include <thread>
 
 using namespace rapidjson;
@@ -30,13 +30,13 @@ void Server::run() {
 
 		printf("%s\n", buf);
 
-		player p = parseResponse(buf);
+		player* p = parseResponse(buf);
 
 		// Calculate view for player
-		int rStartX = p.position.x - renderDistanceX;
-		int rEndX = p.position.x + renderDistanceX;
-		int rStartY = p.position.y - renderDistanceY;
-		int rEndY = p.position.y + renderDistanceY;
+		int rStartX = p->position.x - renderDistanceX;
+		int rEndX = p->position.x + renderDistanceX;
+		int rStartY = p->position.y - renderDistanceY;
+		int rEndY = p->position.y + renderDistanceY;
 
 		// Encode
 		StringBuffer json;
@@ -55,8 +55,8 @@ void Server::run() {
 					if ((playerToCheck.position.y == y) && (playerToCheck.position.x == x)) {
 						writeBlock = false;
 
-						writer.Int(p.face);
-						writer.Int(p.color);
+						writer.Int(p->face);
+						writer.Int(p->color);
 						// BUG If more than one player stands on the same block,(should not be possible) only first one will be seen.
 						// Save cpu
 						break;
@@ -88,11 +88,11 @@ void Server::run() {
 		writer.Key("cords");
 		writer.StartObject();
 		writer.Key("y");
-		writer.Int(p.position.y);
+		writer.Int(p->position.y);
 		writer.Key("x");
-		writer.Int(p.position.x);
+		writer.Int(p->position.x);
 		writer.Key("hp");
-		writer.Int(p.hp);
+		writer.Int(p->hp);
 		writer.EndObject();
 
 		writer.EndObject();

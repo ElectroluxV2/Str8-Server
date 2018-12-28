@@ -3,8 +3,40 @@
 using namespace std;
 
 struct cords {
-	int x = 0;
 	int y = 0;
+	int x = 0;
+
+	cords* subtract(int y, int x) {
+		y -= y;
+		x -= x;
+		return this;
+	}
+
+	cords* add(int y, int x) {
+		y += y;
+		x += x;
+		return this;
+	}
+
+	cords* subtractX(int x) {
+		x -= x;
+		return this;
+	}
+
+	cords* subtractY(int y) {
+		y -= y;
+		return this;
+	}
+
+	cords* addX(int x) {
+		x += x;
+		return this;
+	}
+
+	cords* addY(int y) {
+		y += y;
+		return this;
+	}
 };
 
 struct player {
@@ -26,10 +58,8 @@ struct player {
 	}
 };
 
-
 struct mob
 {
-
 	player *mTarget;
 	bool mHasTarget = false;
 
@@ -59,6 +89,7 @@ struct mob
 	}
 };
 
+
 struct block {
 	bool playerCanEnter;
 	char face;
@@ -66,6 +97,7 @@ struct block {
 };
 
 struct map {
+
 	vector<mob> mobs;
 	vector<player> players;
 
@@ -78,18 +110,48 @@ struct map {
 	size size;
 	block *blocks;
 
+	bool isSuitableForEntry(cords* position) {
+		return isSuitableForEntry(position->y, position->x);
+	}
+	bool isSuitableForEntry(int y, int x) {
+		// Simple check
+		if (!get(y, x).playerCanEnter) {
+			return false;
+		}
+
+		// Check players
+		for (player &p : players) {
+			if ((p.position.x == x) && (p.position.y == y)) {
+				return false;
+			}
+		}
+
+		// Check mobs
+		for (mob &m : mobs) {
+			if ((m.position.x == x) && (m.position.y == y)) {
+				return false;
+			}
+		}
+
+		// Yes
+		return true;
+	}
+
+	inline block& get(cords position) { return blocks[position.x * (size.y) + position.y]; }
 	inline block& get(int y, int x) { return blocks[x * (size.y) + y]; }
 	inline block& get(int index) { return blocks[index]; }
+
+	inline void set(cords position, block block) { blocks[position.x * (size.y) + position.y] = block; }
 	inline void set(int y, int x, block block) { blocks[x * (size.y) + y] = block; }
 	inline void set(int index, block block) { blocks[index] = block; }
 
-	player& getPlayer(string nick) {
+	player *getPlayer(string nick) {
 		for (player &player : players) {
 
 			if (player.nick != nick) {
 				continue;
 			}
-			return player;
+			return &player;
 		}
 	}
 
@@ -110,19 +172,13 @@ struct map {
 			mobs.push_back(mob);
 		}
 		for (int index = 0; index < size.totalIndexes; index++) {
-
-
-
 			int rnd = (rand() % 10) + 0;
 
 			switch (rnd) {
 			case 3:
-
-
 			case 0:
 			case 1:
 			case 2:
-
 			case 4:
 			case 5:
 			case 6:
