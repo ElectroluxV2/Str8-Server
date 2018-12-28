@@ -64,7 +64,7 @@ struct mob
 	bool mHasTarget = false;
 
 	cords position = { 50, 50 };
-	// Default pssive
+	// Default passive
 	int color = 02;
 	char face = 'M';
 
@@ -175,10 +175,10 @@ struct map {
 			int rnd = (rand() % 10) + 0;
 
 			switch (rnd) {
-			case 3:
 			case 0:
 			case 1:
 			case 2:
+			case 3:
 			case 4:
 			case 5:
 			case 6:
