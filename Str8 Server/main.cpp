@@ -14,6 +14,6 @@ int main() {
 	server.initialization();
 
 	/// Run 4ever
-	/// testing
+	/// Pierwszy
 	server.run();
 }
